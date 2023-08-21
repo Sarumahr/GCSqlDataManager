@@ -11,6 +11,12 @@ def getConfig(configPath):
         jsonDecoded = json.loads(jsonObject)
         return jsonDecoded
 
+def getConfigObject(configPath, configValue):
+    with open(configPath, "r") as f:
+        jsonObject = f.read()
+        jsonDecoded = json.loads(jsonObject)
+        return jsonDecoded["config"][configValue]
+
 def modifyConfig(configPath, jsonObject, modifyValue, modifier):
     '''
     modifies the config file
