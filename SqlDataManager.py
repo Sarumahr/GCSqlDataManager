@@ -91,8 +91,9 @@ class Example(MDApp):
         )
 
     def build(self):
+        theme_style = cm.getConfigObject("opt/conf/config.json", "theme")
         self.theme_cls.primary_palette = "Orange"
-        self.theme_cls.theme_style = "Dark"
+        self.theme_cls.theme_style = theme_style
 
         return Builder.load_string(KV)
     
