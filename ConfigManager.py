@@ -20,5 +20,5 @@ def modifyConfig(configPath, jsonObject, modifyValue, modifier):
     :param modifier: new value of json object
     '''
     with open(configPath, "w", encoding='utf-8') as f:
-        jsonDecoded = jsonObject["config"][modifyValue] = modifier
-        json.dump(jsonDecoded, f, ensure_ascii=False, indent=4)
+        jsonObject["config"][modifyValue] = modifier
+        json.dump(jsonObject, f, ensure_ascii=False, indent=4)
