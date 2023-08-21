@@ -1,0 +1,7 @@
+{
+    "config": {
+        "sqlPath": "C:\\Users\\Felix\\Documents\\GitHub\\GCSqlDataManager\\database.sqlite",
+        "theme": "Dark",
+        "color": "Blue"
+    }
+}
