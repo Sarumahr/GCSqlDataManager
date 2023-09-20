@@ -1,7 +1,17 @@
 import sqlite3 as sql
 from sqlite3 import Error
+from sqlite3 import Connection
 
-def ExecuteQuery(conn, query, object):
+def CreateInsert(tableName: str, rows: tuple) -> str:
+    mark = []
+    for val in rows:
+        mark.append('?')
+    query = f'''
+        INSERT INTO {tableName}({','.join(rows)}) VALUES({','.join(mark)})
+    '''
+    return query
+
+def ExecuteQuery(conn: Connection, query: str, object: tuple) -> int:
     """ 
     Execute the given query into the database
     :param conn:
@@ -15,7 +25,7 @@ def ExecuteQuery(conn, query, object):
     return cur.lastrowid 
 
 
-def CreateConnection(db_file):
+def CreateConnection(db_file: str) -> Connection:
     """ Create a database connection to the SQLite database
         specified by db_file
     :param db_file: database file
@@ -28,70 +38,76 @@ def CreateConnection(db_file):
         print(e)
     return conn
 
-def CreateCondition(conn, condition):
+def CreateCondition(conn: Connection, condition: tuple) -> int:
     """
     Create a new condition into the GC_CONDITION table
     :param conn:
     :param condition:
     :return: condition id
     """
-    query = ''' INSERT INTO GC_CONDITION(id,cond_code,cond_text)
-                VALUES(?,?,?) '''
+    TABLENAME = "GC_CONDITION"
+    ROWS = ('id', 'cond_code', 'cond_text')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, condition)
 
-def CreatePublisher(conn, publisher):
+def CreatePublisher(conn: Connection, publisher: tuple) -> int:
     """
     Create a new publisher into the GC_PUBLISHER table
     :param conn:
     :param publisher:
     :return: publisher id 
     """
-    query = ''' INSERT INTO GC_PUBLISHER(id,name,date)
-                VALUES(?,?,?)'''
+    TABLENAME = "GC_PUBLISHER"
+    ROWS = ('id', 'name', 'date')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, publisher)
 
-def CreateLanguage(conn, language):
+def CreateLanguage(conn: Connection, language: tuple) -> int:
     """
     Create a new language into the GC_LANGUAGE table
     :param conn:
     :param language:
     :return: language id
     """
-    query = ''' INSERT INTO GC_LANGUAGE(id,lang_code,lang_text)
-                VALUES(?,?,?)'''
+    TABLENAME = "GC_LANGUAGE"
+    ROWS = ('id', 'lang_code', 'lang_text')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, language)
 
-def CreateConsole(conn, console):
+def CreateConsole(conn: Connection, console: tuple) -> int:
     """
     Create a new console into the GC_CONSOLE table
     :param conn:
     :param console:
     :return console id:
     """
-    query = ''' INSERT INTO GC_CONSOLE(id,upc,name,area,publisher,release_date,image,cond_pack,cond_book,cond_console,price,price_history)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?)'''
+    TABLENAME = "GC_CONSOLE"
+    ROWS = ('id', 'upc', 'name', 'area', 'publisher', 'release_date', 'image', 'cond_pack', 'cond_book', 'cond_console', 'price', 'price_history')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, console)
 
-def CreateGame(conn, game):
+def CreateGame(conn: Connection, game: tuple) -> int:
     """
     Create a new game into the GC_GAME table
     :param conn:
     :param game:
     :return: game id
     """
-    query = ''' INSERT INTO GC_GAME(id,upc,name,edition,lang,area,publisher,release_date,image,usk,console,players,storage,cond_shell,cond_book,cond_disk,price,price_history)
-                VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)'''
+    TABLENAME = "GC_GAME"
+    ROWS = ('id', 'upc', 'name', 'edition', 'lang', 'area', 'publisher', 'release_date', 'image', 'usk', 'console', 'players', 'storage', 'cond_shell', 'cond_book', 'cond_disk', 'price', 'price_history')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, game)
 
-def CreatePriceHistory(conn, price_history):
+def CreatePriceHistory(conn: Connection, price_history: tuple) -> int:
     """
     Create a new price_history into the GC_PRICE_HISTORY table
     :param conn:
     :param price_history:
     :return: price_history id
     """
-    query = ''' INSERT INTO GC_PRICE_HISTORY(id,date,game,shop,price)
-                VALUES(?,?,?,?,?)'''
+    TABLENAME = "GC_PRICE_HISTORY"
+    ROWS = ('id', 'date', 'game', 'shop', 'price')
+    query = CreateInsert(TABLENAME, ROWS)
     return ExecuteQuery(conn, query, price_history)
 
 def main():
