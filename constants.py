@@ -16,3 +16,5 @@ EXAMPLE_GAME = (999, "9017384562983", "example", "example", 999, "example", 999,
 GC_PRICE_HISTORY_ROWS = ('id', 'date', 'game', 'shop', 'price')
 GC_PRICE_HISTORY_TABLE = "GC_PRICE_HISTORY"
 EXAMPLE_PRICE_HISTORY = (999, "12.12.1212", 999, "ebay", "12,99€")
+
+CONFIG_PATH = "opt/conf/config.json"
