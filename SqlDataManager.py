@@ -12,8 +12,7 @@ from kivymd.toast import toast
 
 from SqlDataManagement import CreateConnection
 import ConfigManager as cm
-
-CONFIG_PATH = "opt/conf/config.json"
+import constants as c
 
 KV = '''
 <ContentNavigationDrawer>
@@ -93,8 +92,8 @@ class Example(MDApp):
         )
 
     def build(self):
-        theme_style = cm.getConfigObject(CONFIG_PATH, "theme")
-        color_style = cm.getConfigObject(CONFIG_PATH, "color")
+        theme_style = cm.getConfigObject(c.CONFIG_PATH, "theme")
+        color_style = cm.getConfigObject(c.CONFIG_PATH, "color")
         self.theme_cls.primary_palette = color_style
         self.theme_cls.theme_style = theme_style
 
@@ -112,8 +111,8 @@ class Example(MDApp):
         :param path: path to the selected directory or file;
         '''
         
-        jsonObject = cm.getConfig(CONFIG_PATH)
-        cm.modifyConfig(CONFIG_PATH, jsonObject, "sqlPath", path)
+        jsonObject = cm.getConfig(c.CONFIG_PATH)
+        cm.modifyConfig(c.CONFIG_PATH, jsonObject, "sqlPath", path)
 
         self.exit_manager()
         toast(path)
